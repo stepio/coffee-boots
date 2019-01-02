@@ -1,0 +1,4 @@
+language: java
+jdk: openjdk8
+install: true
+script: mvn -P owasp,sonar install -Dmaven.javadoc.skip=true -B -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.organization=$SONAR_ORGANIZATION -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_LOGIN
