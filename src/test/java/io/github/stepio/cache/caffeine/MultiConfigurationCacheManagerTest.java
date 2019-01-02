@@ -5,7 +5,10 @@ import io.github.stepio.cache.support.TestBase;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 public class MultiConfigurationCacheManagerTest extends TestBase {
 
@@ -23,7 +26,10 @@ public class MultiConfigurationCacheManagerTest extends TestBase {
         aShortTerm = this.cachedDataHolder.newCachedShortTermObject();
         assertThat(aShortTerm).isSameAs(bShortTerm);
 
-        sleep(2100L);
+        final Object etalon = aShortTerm;
+        await().atMost(2100, TimeUnit.MILLISECONDS)
+                .until(() -> this.cachedDataHolder.newCachedShortTermObject() != etalon);
+
         bShortTerm = this.cachedDataHolder.newCachedShortTermObject();
         assertThat(bShortTerm).isNotSameAs(aShortTerm);
         aShortTerm = this.cachedDataHolder.newCachedShortTermObject();
