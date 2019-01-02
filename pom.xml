@@ -16,7 +16,7 @@
     <properties>
         <java.version>1.8</java.version>
         <assertj.version>3.4.1</assertj.version>
-        <dependency-check-plugin.version>4.0.1</dependency-check-plugin.version>
+        <dependency-check-plugin.version>4.0.2</dependency-check-plugin.version>
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
         <sonar-maven-plugin.version>3.5.0.1254</sonar-maven-plugin.version>
         <!-- Additional configurations -->
