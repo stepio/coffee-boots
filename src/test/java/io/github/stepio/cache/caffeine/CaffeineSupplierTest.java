@@ -1,11 +1,8 @@
 package io.github.stepio.cache.caffeine;
 
-import io.github.stepio.cache.caffeine.support.TestContext;
+import io.github.stepio.cache.support.TestBase;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,15 +11,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Igor Stepanov
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {TestContext.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class CaffeineSupplierTest {
+public class CaffeineSupplierTest extends TestBase {
 
     @Autowired
     private CaffeineSupplier caffeineSupplier;
 
     @Test
-    public void getCacheSpecificationKey_withDummy() {
+    public void getCacheSpecificationKey_withCaches() {
         assertThat(this.caffeineSupplier.composeKey("largeShort")).isEqualTo("spring.cache.caffeine.spec.largeShort");
         assertThat(this.caffeineSupplier.composeKey("medium")).isEqualTo("spring.cache.caffeine.spec.medium");
         assertThat(this.caffeineSupplier.composeKey("tinyLong")).isEqualTo("spring.cache.caffeine.spec.tinyLong");
@@ -30,10 +25,10 @@ public class CaffeineSupplierTest {
     }
 
     @Test
-    public void getCacheSpecification_withDummy() throws Exception {
+    public void getCacheSpecification_withCaches() {
         assertThat(this.caffeineSupplier.apply("largeShort"))
                 .hasFieldOrPropertyWithValue("maximumSize", 10_000L)
-                .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 5_000_000_000L);
+                .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 2_000_000_000L);
         assertThat(this.caffeineSupplier.apply("medium"))
                 .hasFieldOrPropertyWithValue("maximumSize", 2000L)
                 .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 120_000_000_000L);

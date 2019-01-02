@@ -1,0 +1,20 @@
+package io.github.stepio.cache.support;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
+
+/**
+ * Test context for testing the whole Spring context with auto-configured beans.
+ *
+ * @author Igor Stepanov
+ */
+@SpringBootApplication
+@EnableCaching
+public class TestContext {
+
+    @Bean
+    public CachedDataHolder cachedDataHolder() {
+        return new CachedDataHolder();
+    }
+}
