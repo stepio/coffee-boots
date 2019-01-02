@@ -10,7 +10,7 @@
         <version>1.5.18.RELEASE</version>
     </parent>
     <groupId>io.github.stepio.cache</groupId>
-    <artifactId>caffeine-spec-spring</artifactId>
+    <artifactId>spring-boot-multi-caffeine</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
