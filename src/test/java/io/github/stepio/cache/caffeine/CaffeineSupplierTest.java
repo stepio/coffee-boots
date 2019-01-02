@@ -19,31 +19,31 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CaffeineSupplierTest {
 
     @Autowired
-    private CaffeineSupplier cacheBuilderSupplier;
+    private CaffeineSupplier caffeineSupplier;
 
     @Test
     public void getCacheSpecificationKey_withDummy() {
-        assertThat(this.cacheBuilderSupplier.composeKey("largeShort")).isEqualTo("spring.cache.caffeine.spec.largeShort");
-        assertThat(this.cacheBuilderSupplier.composeKey("medium")).isEqualTo("spring.cache.caffeine.spec.medium");
-        assertThat(this.cacheBuilderSupplier.composeKey("tinyLong")).isEqualTo("spring.cache.caffeine.spec.tinyLong");
-        assertThat(this.cacheBuilderSupplier.composeKey("dummy")).isEqualTo("spring.cache.caffeine.spec.dummy");
+        assertThat(this.caffeineSupplier.composeKey("largeShort")).isEqualTo("spring.cache.caffeine.spec.largeShort");
+        assertThat(this.caffeineSupplier.composeKey("medium")).isEqualTo("spring.cache.caffeine.spec.medium");
+        assertThat(this.caffeineSupplier.composeKey("tinyLong")).isEqualTo("spring.cache.caffeine.spec.tinyLong");
+        assertThat(this.caffeineSupplier.composeKey("dummy")).isEqualTo("spring.cache.caffeine.spec.dummy");
     }
 
     @Test
     public void getCacheSpecification_withDummy() throws Exception {
-        assertThat(this.cacheBuilderSupplier.apply("largeShort"))
+        assertThat(this.caffeineSupplier.apply("largeShort"))
                 .hasFieldOrPropertyWithValue("maximumSize", 10_000L)
                 .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 5_000_000_000L);
-        assertThat(this.cacheBuilderSupplier.apply("medium"))
+        assertThat(this.caffeineSupplier.apply("medium"))
                 .hasFieldOrPropertyWithValue("maximumSize", 2000L)
                 .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 120_000_000_000L);
-        assertThat(this.cacheBuilderSupplier.apply("tinyLong"))
+        assertThat(this.caffeineSupplier.apply("tinyLong"))
                 .hasFieldOrPropertyWithValue("maximumSize", 10L)
                 .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 21600_000_000_000L);
-        assertThat(this.cacheBuilderSupplier.apply("default"))
+        assertThat(this.caffeineSupplier.apply("default"))
                 .hasFieldOrPropertyWithValue("maximumSize", 5000L)
                 .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 300_000_000_000L);
-        assertThat(this.cacheBuilderSupplier.apply("dummy"))
+        assertThat(this.caffeineSupplier.apply("dummy"))
                 .hasFieldOrPropertyWithValue("maximumSize", 5000L)
                 .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 300_000_000_000L);
     }
