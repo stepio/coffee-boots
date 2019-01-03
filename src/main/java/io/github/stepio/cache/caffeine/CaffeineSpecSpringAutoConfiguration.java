@@ -24,7 +24,7 @@ public class CaffeineSpecSpringAutoConfiguration {
     @ConditionalOnMissingBean
     public CacheManager cacheManager(CaffeineSupplier caffeineSupplier) {
         MultiConfigurationCacheManager cacheManager = new MultiConfigurationCacheManager();
-        cacheManager.setCaffeineSupplier(caffeineSupplier);
+        cacheManager.setCacheBuilderSupplier(caffeineSupplier);
         return cacheManager;
     }
 }
