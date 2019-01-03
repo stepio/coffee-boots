@@ -1,4 +1,4 @@
-# spring-boot-multi-caffeine
+# Coffee Boots
 
 [![Build Status](https://travis-ci.org/stepio/spring-boot-multi-caffeine.svg?branch=master)](https://travis-ci.org/stepio/spring-boot-multi-caffeine)
 [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=stepio_spring-boot-multi-caffeine&metric=alert_status)](https://sonarcloud.io/dashboard?id=stepio_spring-boot-multi-caffeine)
@@ -6,4 +6,5 @@
 [![DepShield Badge](https://depshield.sonatype.org/badges/stepio/spring-boot-multi-caffeine/depshield.svg)](https://depshield.github.io)
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
-Tiny project to allow property-based configuring of multiple Caffeine caches for Spring Cache abstraction.
+Supports property-based configuring of multiple Caffeine caches for Spring Cache abstraction.
+Works best with Spring Boot, implements auto-configuration mechanism.

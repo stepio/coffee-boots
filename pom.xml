@@ -10,8 +10,12 @@
         <version>1.5.18.RELEASE</version>
     </parent>
     <groupId>io.github.stepio.cache</groupId>
-    <artifactId>spring-boot-multi-caffeine</artifactId>
+    <artifactId>coffee-boots</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+
+    <name>Coffee Boots</name>
+    <description>Support property-based configuring of multiple Caffeine caches for Spring Cache abstraction</description>
+    <url>https://github.io/stepio/coffee-boots</url>
 
     <properties>
         <java.version>1.8</java.version>
@@ -23,6 +27,17 @@
         <!-- Additional configurations -->
         <dependency-check-plugin.score-limit>8</dependency-check-plugin.score-limit>
     </properties>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/stepio/coffee-boots</url>
+    </scm>
 
     <dependencyManagement>
         <dependencies>
@@ -38,14 +53,17 @@
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
