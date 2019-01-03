@@ -16,7 +16,7 @@ public class MultiConfigurationCacheManagerTest extends TestBase {
     private CachedDataHolder cachedDataHolder;
 
     @Test
-    public void createNativeCaffeineCache_withCaches() {
+    public void testCreateNativeCaffeineCacheWithPreconfiguredCaches() {
         Object longTerm = this.cachedDataHolder.newCachedLongTermObject();
         assertThat(this.cachedDataHolder.newCachedLongTermObject()).isSameAs(longTerm);
 

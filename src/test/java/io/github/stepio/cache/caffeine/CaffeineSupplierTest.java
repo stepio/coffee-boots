@@ -17,7 +17,7 @@ public class CaffeineSupplierTest extends TestBase {
     private CaffeineSupplier caffeineSupplier;
 
     @Test
-    public void getCacheSpecificationKey_withCaches() {
+    public void testComposeKeyWithDifferentCacheNames() {
         assertThat(this.caffeineSupplier.composeKey("largeShort")).isEqualTo("spring.cache.caffeine.spec.largeShort");
         assertThat(this.caffeineSupplier.composeKey("medium")).isEqualTo("spring.cache.caffeine.spec.medium");
         assertThat(this.caffeineSupplier.composeKey("tinyLong")).isEqualTo("spring.cache.caffeine.spec.tinyLong");
@@ -25,7 +25,7 @@ public class CaffeineSupplierTest extends TestBase {
     }
 
     @Test
-    public void getCacheSpecification_withCaches() {
+    public void testApplyWithPreconfiguredCaches() {
         assertThat(this.caffeineSupplier.apply("largeShort"))
                 .hasFieldOrPropertyWithValue("maximumSize", 10_000L)
                 .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 2_000_000_000L);
