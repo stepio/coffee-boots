@@ -21,10 +21,13 @@ import static org.awaitility.Awaitility.await;
 public class MultiConfigurationCacheManagerTest {
 
     @Autowired
+    private MultiConfigurationCacheManager cacheManager;
+    @Autowired
     private CachedDataHolder cachedDataHolder;
 
     @Test
     public void testCreateNativeCaffeineCacheAsDefault() {
+        assertThat(this.cacheManager.getCacheBuilderSupplier()).isNotNull();
         Object dummy = this.cachedDataHolder.newCachedSpecialObject();
         assertThat(this.cachedDataHolder.newCachedSpecialObject()).isSameAs(dummy);
     }

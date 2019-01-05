@@ -1,7 +1,6 @@
 package io.github.stepio.cache.caffeine;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -19,7 +18,7 @@ public class CaffeineSpecSpringAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public CacheManager cacheManager(CaffeineSupplier caffeineSupplier) {
+    public MultiConfigurationCacheManager cacheManager(CaffeineSupplier caffeineSupplier) {
         MultiConfigurationCacheManager cacheManager = new MultiConfigurationCacheManager();
         cacheManager.setCacheBuilderSupplier(caffeineSupplier);
         return cacheManager;
