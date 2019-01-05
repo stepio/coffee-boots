@@ -30,6 +30,12 @@ public class MultiConfigurationCacheManager extends CaffeineCacheManager {
 
     @Override
     protected Cache<Object, Object> createNativeCaffeineCache(String name) {
-        return this.cacheBuilderSupplier.apply(name).build();
+        if (this.cacheBuilderSupplier != null) {
+            Caffeine<Object, Object> caffeine = this.cacheBuilderSupplier.apply(name);
+            if (caffeine != null) {
+                return caffeine.build();
+            }
+        }
+        return super.createNativeCaffeineCache(name);
     }
 }

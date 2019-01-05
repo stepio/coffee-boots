@@ -1,7 +1,6 @@
 package io.github.stepio.cache.caffeine;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
@@ -18,12 +17,7 @@ public class CaffeineSupplier implements Function<String, Caffeine<Object, Objec
 
     private static final String CACHE_SPEC_CUSTOM = "spring.cache.caffeine.spec.%s";
 
-    private CacheProperties cacheProperties;
     private Environment environment;
-
-    public CaffeineSupplier(CacheProperties cacheProperties) {
-        this.cacheProperties = cacheProperties;
-    }
 
     @Override
     public void setEnvironment(Environment environment) {
@@ -33,10 +27,10 @@ public class CaffeineSupplier implements Function<String, Caffeine<Object, Objec
     @Override
     public Caffeine<Object, Object> apply(String name) {
         String value = this.environment.getProperty(composeKey(name));
-        if (StringUtils.isEmpty(value)) {
-            value = this.cacheProperties.getCaffeine().getSpec();
+        if (StringUtils.hasText(value)) {
+            return Caffeine.from(value);
         }
-        return Caffeine.from(value);
+        return null;
     }
 
     protected String composeKey(String name) {
