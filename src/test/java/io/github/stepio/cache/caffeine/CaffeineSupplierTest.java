@@ -23,10 +23,10 @@ public class CaffeineSupplierTest {
 
     @Test
     public void testComposeKeyWithDifferentCacheNames() {
-        assertThat(this.caffeineSupplier.composeKey("dummy")).isEqualTo("spring.cache.caffeine.spec.dummy");
-        assertThat(this.caffeineSupplier.composeKey("largeShort")).isEqualTo("spring.cache.caffeine.spec.largeShort");
-        assertThat(this.caffeineSupplier.composeKey("medium")).isEqualTo("spring.cache.caffeine.spec.medium");
-        assertThat(this.caffeineSupplier.composeKey("tinyLong")).isEqualTo("spring.cache.caffeine.spec.tinyLong");
+        assertThat(this.caffeineSupplier.composeKey("dummy")).isEqualTo("coffee-boots.cache.spec.dummy");
+        assertThat(this.caffeineSupplier.composeKey("largeShort")).isEqualTo("coffee-boots.cache.spec.largeShort");
+        assertThat(this.caffeineSupplier.composeKey("medium")).isEqualTo("coffee-boots.cache.spec.medium");
+        assertThat(this.caffeineSupplier.composeKey("tinyLong")).isEqualTo("coffee-boots.cache.spec.tinyLong");
     }
 
     @Test

@@ -15,7 +15,7 @@ import java.util.function.Function;
  */
 public class CaffeineSupplier implements Function<String, Caffeine<Object, Object>>, EnvironmentAware {
 
-    private static final String CACHE_SPEC_CUSTOM = "spring.cache.caffeine.spec.%s";
+    private static final String CACHE_SPEC_CUSTOM = "coffee-boots.cache.spec.%s";
 
     private Environment environment;
 
