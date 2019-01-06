@@ -13,7 +13,7 @@ This means that in most cases you don't have to create any beans yourself, just 
 <dependency>
     <groupId>io.github.stepio.coffee-boots</groupId>
     <artifactId>coffee-boots</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
@@ -21,17 +21,48 @@ Let's review a quick example to understand what the project does:
 1.  Suppose you use Spring Cache functionality much and have a set of named caches.
     -   Your cached method may look like this:
 ```java
-    @CachePut("myCache")
-    public Object getMyCachecObject() {
-        // some heavy stuff here
-    }
+@CachePut("myCache")
+public Object getMyCachecObject() {
+    // some heavy stuff here
+}
 ```
-2.  Now you know that you need an ability to configure some of the named caches with specific parameters. As an experienced `Spring Boot` user you don't want to hard-code it, you want the framework to do this little magic for you, cause you know that the case is so simple and straight-forward. Ok, you're right, just define the needed value for `coffee-boots.cache.spec.<your property name>` property.
+2.  Now you know that you need an ability to configure some of the named caches with specific parameters.
+    -   Using this project's API you may define your own `Caffeine` the following way:
+```java
+@Autowired
+private CaffeineSupplier caffeineSupplier;
+
+@PostConstruct
+public void initialize() {
+    Caffeine<Object, Object> myCacheBuilder = Caffeine.<Object, Object>newBuilder()
+            .expireAfterWrite(1L, TimeUnit.MINUTES)
+            .maximumSize(100000L);
+    this.caffeineSupplier.putCaffeine("myCache", myCacheBuilder);
+}
+```
+3.  But in most cases hard-coding the exact caching parameters is not a good idea, so you may get them from properties.
+    -   Modifying the above given code to get the caching parameters from `Environment`:
+```java
+@Autowired
+private CaffeineSupplier caffeineSupplier;
+@Autowired
+private Environment environment;
+
+@PostConstruct
+public void initialize() {
+    Caffeine<Object, Object> myCacheBuilder = Caffeine.<Object, Object>newBuilder()
+            .expireAfterWrite(environment.getProperty("myCache.expireAfterWrite", Long.class, 1L), TimeUnit.MINUTES)
+            .maximumSize(environment.getProperty("myCache.maximumSize", Long.class, 100000L));
+    this.caffeineSupplier.putCaffeine("myCache", myCacheBuilder);
+}
+```
+4.  After adding 3-5 caches you understand that configuring them this way 1 by 1 is no fun. As an experienced `Spring Boot` user you don't want to hard-code it, you want the framework to do this little magic for you, cause you know that the case is so simple and straight-forward.
+Ok, you're right, you may remove the above given customizations and just define the needed value for `coffee-boots.cache.spec.<your_cache_name>` property.
     -   The appropriate configuration in your `application.properties` for the above given example would be the following:
 ```properties
 coffee-boots.cache.spec.myCache=maximumSize=100000,expireAfterWrite=1m
 ```
-3.  Let's imagine that you don't need to use the project anymore. Ok, no problem:
+5.  Let's imagine that you don't need to use the project anymore. Ok, no problem:
     -   At first you may remove the relevant customizations - if no code changes were introduced, just remove all the properties matching `coffee-boots.*` prefix. At this point your goal is reached as `Coffee Boots` uses Spring's default functionality if no customizations are defined.
     -   If you're not planning to use this functionality in the nearest future, just drop the dependency to `io.github.stepio.coffee-boots:coffee-boots` artifact. Nobody needs unused dependencies.
 
