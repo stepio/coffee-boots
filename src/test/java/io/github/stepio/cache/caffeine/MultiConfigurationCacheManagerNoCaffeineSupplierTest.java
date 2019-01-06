@@ -13,8 +13,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {CaffeineSpecSpringAutoConfigurationTest.TestContext.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class CaffeineSpecSpringAutoConfigurationTest {
+@SpringBootTest(
+        classes = {MultiConfigurationCacheManagerNoCaffeineSupplierTest.TestContext.class},
+        webEnvironment = SpringBootTest.WebEnvironment.NONE
+)
+public class MultiConfigurationCacheManagerNoCaffeineSupplierTest {
 
     @Autowired
     private MultiConfigurationCacheManager cacheManager;

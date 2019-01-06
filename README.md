@@ -39,4 +39,5 @@ P.S.: Project's name is almost meaningless - just wanted it to be close to `Caff
 
 Related issues:
 -   [spring-framework/pull/1506](https://github.com/spring-projects/spring-framework/pull/1506)
+-   [spring-framework/pull/1932](https://github.com/spring-projects/spring-framework/pull/1932/files)
 -   [spring-boot/issues/9301](https://github.com/spring-projects/spring-boot/issues/9301)
