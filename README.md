@@ -6,7 +6,7 @@
 [![DepShield Badge](https://depshield.sonatype.org/badges/stepio/coffee-boots/depshield.svg)](https://depshield.github.io)
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
-Coffee Boots projects implements property-based configuring of multiple [Caffeine](https://github.com/ben-manes/caffeine) caches for [Spring Cache](https://github.com/spring-projects/spring-framework/tree/master/spring-context/src/main/java/org/springframework/cache) abstraction. 
+Coffee Boots project implements (property-based) configuring of multiple [Caffeine](https://github.com/ben-manes/caffeine) caches for [Spring Cache](https://github.com/spring-projects/spring-framework/tree/master/spring-context/src/main/java/org/springframework/cache) abstraction. 
 It works best with [Spring Boot](https://github.com/spring-projects/spring-boot), implementing [auto-configuration](https://github.com/stepio/coffee-boots/blob/master/src/main/java/io/github/stepio/cache/caffeine/CaffeineSpecSpringAutoConfiguration.java) mechanism.
 This means that in most cases you don't have to create any beans yourself, just add [dependency to the latest version](https://search.maven.org/search?q=g:io.github.stepio.coffee-boots%20AND%20a:coffee-boots&core=gav):
 ```xml

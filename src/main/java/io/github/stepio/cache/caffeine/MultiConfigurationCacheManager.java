@@ -18,9 +18,8 @@ public class MultiConfigurationCacheManager extends CaffeineCacheManager {
     private Function<String, Caffeine<Object, Object>> cacheBuilderSupplier;
 
     /**
-     * Set the {@link Function} to produce {@link Cache}
-     * to use for building each individual {@link Cache} instance.
-     * @param supplier sets implementation of function for instantiating the {@link Cache} with the specified name
+     * Set the {@link Function} to produce {@link Caffeine} for building each individual {@link Cache} instance.
+     * @param supplier the implementation of Caffeine producer
      * @see #createNativeCaffeineCache
      * @see Caffeine#from(CaffeineSpec)
      */
@@ -28,10 +27,21 @@ public class MultiConfigurationCacheManager extends CaffeineCacheManager {
         this.cacheBuilderSupplier = supplier;
     }
 
+    /**
+     * Accessor for the underlying {@link Caffeine} producer.
+     * @return exact implementation of function for instantiating the Cache with the specified name
+     */
     public Function<String, Caffeine<Object, Object>> getCacheBuilderSupplier() {
         return cacheBuilderSupplier;
     }
 
+    /**
+     * Create a native Caffeine Cache instance for the specified cache name.
+     * If the appropriate custom Caffeine is available for the given name, applies it.
+     * Otherwise uses Spring's implementation with common Caffeine by default.
+     * @param name the name of the cache
+     * @return the native Caffeine Cache instance
+     */
     @Override
     protected Cache<Object, Object> createNativeCaffeineCache(String name) {
         if (this.cacheBuilderSupplier != null) {
