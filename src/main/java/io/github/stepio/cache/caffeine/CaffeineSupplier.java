@@ -31,19 +31,34 @@ public class CaffeineSupplier implements Function<String, Caffeine<Object, Objec
         this.environment = environment;
     }
 
+    /**
+     * Entry point for programmatic customization of individual named Cache.
+     * @param name the name of the cache
+     * @param caffeine the Caffeine instance
+     */
     public void putCaffeine(String name, Caffeine<Object, Object> caffeine) {
         notNull(caffeine, "Non-null Caffeine is mandatory");
         this.cacheBuilders.put(name, caffeine);
     }
 
+    /**
+     * Entry point for programmatic customization of individual named Cache.
+     * @param name the name of the cache
+     * @param caffeineSpec the CaffeineSpec instance for Caffeine instantiation
+     */
     public void putCaffeineSpec(String name, CaffeineSpec caffeineSpec) {
         notNull(caffeineSpec, "Non-null Caffeine specification is mandatory");
         putCaffeine(name, Caffeine.from(caffeineSpec));
     }
 
-    public void putCaffeineSpecification(String name, String caffeineSpec) {
-        hasText(caffeineSpec, "Non-empty Caffeine specification is mandatory");
-        putCaffeineSpec(name, CaffeineSpec.parse(caffeineSpec));
+    /**
+     * Entry point for programmatic customization of individual named Cache.
+     * @param name the name of the cache
+     * @param caffeineSpecification the String representation of Caffeine specification
+     */
+    public void putCaffeineSpecification(String name, String caffeineSpecification) {
+        hasText(caffeineSpecification, "Non-empty Caffeine specification is mandatory");
+        putCaffeineSpec(name, CaffeineSpec.parse(caffeineSpecification));
     }
 
     @Override
