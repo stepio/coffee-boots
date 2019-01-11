@@ -27,7 +27,7 @@
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
-        <sonar-maven-plugin.version>3.5.0.1254</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
         <!-- Additional configurations -->
         <dependency-check-plugin.score-limit>8</dependency-check-plugin.score-limit>
     </properties>
