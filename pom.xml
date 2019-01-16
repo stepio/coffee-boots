@@ -12,6 +12,7 @@
     <groupId>io.github.stepio.coffee-boots</groupId>
     <artifactId>coffee-boots</artifactId>
     <version>1.0.3-SNAPSHOT</version>
+    <inceptionYear>2018</inceptionYear>
 
     <name>Coffee Boots</name>
     <description>Support property-based configuring of multiple Caffeine caches for Spring Cache abstraction</description>
