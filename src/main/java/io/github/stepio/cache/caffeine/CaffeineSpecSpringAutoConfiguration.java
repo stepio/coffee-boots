@@ -16,14 +16,26 @@
 
 package io.github.stepio.cache.caffeine;
 
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * AutoConfiguration to create all the necessary beans.
  *
  * @author Igor Stepanov
  */
+@Configuration
+@ConditionalOnClass({CacheManager.class})
+@ConditionalOnMissingBean(
+        value = {CacheManager.class},
+        name = {"cacheResolver"}
+)
+@AutoConfigureBefore({CacheAutoConfiguration.class})
 public class CaffeineSpecSpringAutoConfiguration {
 
     /**

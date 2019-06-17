@@ -52,7 +52,7 @@ public class MultiConfigurationCacheManagerNoCaffeineSupplierTest {
     static class TestContext {
 
         @Bean
-        public MultiConfigurationCacheManager cacheManager(CaffeineSupplier caffeineSupplier) {
+        public MultiConfigurationCacheManager cacheManager() {
             return new MultiConfigurationCacheManager();
         }
 
