@@ -11,7 +11,7 @@
     </parent>
     <groupId>io.github.stepio.coffee-boots</groupId>
     <artifactId>coffee-boots</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.3</version>
     <inceptionYear>2018</inceptionYear>
 
     <name>Coffee Boots</name>
