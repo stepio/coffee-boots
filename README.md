@@ -15,7 +15,7 @@ This means that in most cases you don't have to create any beans yourself, just 
 <dependency>
     <groupId>io.github.stepio.coffee-boots</groupId>
     <artifactId>coffee-boots</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
