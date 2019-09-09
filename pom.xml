@@ -20,7 +20,7 @@
 
     <properties>
         <!-- Dependency versions -->
-        <awaitility.version>3.1.6</awaitility.version>
+        <awaitility.version>4.0.1</awaitility.version>
         <!-- Plugin versions -->
         <dependency-check-plugin.version>5.2.1</dependency-check-plugin.version>
         <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
