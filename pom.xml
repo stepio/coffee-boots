@@ -23,7 +23,7 @@
         <awaitility.version>3.1.6</awaitility.version>
         <!-- Plugin versions -->
         <dependency-check-plugin.version>5.2.1</dependency-check-plugin.version>
-        <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <sonar-maven-plugin.version>3.6.1.1688</sonar-maven-plugin.version>
