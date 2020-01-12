@@ -46,6 +46,11 @@ public class MultiConfigurationCacheManager extends CaffeineCacheManager {
         this.cacheBuilderSupplier = supplier;
     }
 
+    /**
+     * Set list of {@link CacheCustomizer} instances to be invoked upon creation of each Cache instance.
+     * @param customizers list of CacheCustomizer instances to be invoked
+     * @see CacheCustomizer#onCreate(String, org.springframework.cache.Cache)
+     */
     public void setCustomizers(List<CacheCustomizer> customizers) {
         this.customizers = customizers;
     }
@@ -61,7 +66,7 @@ public class MultiConfigurationCacheManager extends CaffeineCacheManager {
     protected org.springframework.cache.Cache createCaffeineCache(String name) {
         org.springframework.cache.Cache cache = super.createCaffeineCache(name);
         if (this.customizers != null) {
-            this.customizers.forEach(customizer -> customizer.onCreate(cache));
+            this.customizers.forEach(customizer -> customizer.onCreate(name, cache));
         }
         return cache;
     }
