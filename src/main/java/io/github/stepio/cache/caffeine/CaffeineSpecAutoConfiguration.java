@@ -17,13 +17,14 @@
 package io.github.stepio.cache.caffeine;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.cache.CacheManager;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * AutoConfiguration to create all the necessary beans.
@@ -31,13 +32,13 @@ import org.springframework.context.annotation.Configuration;
  * @author Igor Stepanov
  */
 @Configuration
-@ConditionalOnClass({CacheManager.class, Caffeine.class})
+@ConditionalOnClass({CaffeineCacheManager.class, Caffeine.class})
 @ConditionalOnMissingBean(
-        value = {CacheManager.class},
-        name = {"cacheResolver"}
+        value = {MultiConfigurationCacheManager.class},
+        name = {"multiCaffeineManager"}
 )
-@AutoConfigureBefore({CacheAutoConfiguration.class})
-public class CaffeineSpecSpringAutoConfiguration {
+@AutoConfigureAfter(CacheAutoConfiguration.class)
+public class CaffeineSpecAutoConfiguration {
 
     /**
      * Create CaffeineSupplier bean if it's not available in the context.
@@ -55,8 +56,9 @@ public class CaffeineSpecSpringAutoConfiguration {
      * @return the MultiConfigurationCacheManager instance
      */
     @Bean
+    @Primary
     @ConditionalOnMissingBean
-    public MultiConfigurationCacheManager cacheManager(CaffeineSupplier caffeineSupplier) {
+    public MultiConfigurationCacheManager multiCaffeineManager(CaffeineSupplier caffeineSupplier) {
         MultiConfigurationCacheManager cacheManager = new MultiConfigurationCacheManager();
         cacheManager.setCacheBuilderSupplier(caffeineSupplier);
         return cacheManager;

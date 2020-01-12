@@ -19,8 +19,10 @@ package io.github.stepio.cache.caffeine;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.CaffeineSpec;
+import io.github.stepio.cache.CacheCustomizer;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -31,7 +33,8 @@ import java.util.function.Function;
  */
 public class MultiConfigurationCacheManager extends CaffeineCacheManager {
 
-    private Function<String, Caffeine<Object, Object>> cacheBuilderSupplier;
+    protected Function<String, Caffeine<Object, Object>> cacheBuilderSupplier;
+    protected List<CacheCustomizer> customizers;
 
     /**
      * Set the {@link Function} to produce {@link Caffeine} for building each individual {@link Cache} instance.
@@ -43,12 +46,24 @@ public class MultiConfigurationCacheManager extends CaffeineCacheManager {
         this.cacheBuilderSupplier = supplier;
     }
 
+    public void setCustomizers(List<CacheCustomizer> customizers) {
+        this.customizers = customizers;
+    }
+
     /**
      * Accessor for the underlying {@link Caffeine} producer.
      * @return exact implementation of function for instantiating the Cache with the specified name
      */
     public Function<String, Caffeine<Object, Object>> getCacheBuilderSupplier() {
-        return cacheBuilderSupplier;
+        return this.cacheBuilderSupplier;
+    }
+
+    protected org.springframework.cache.Cache createCaffeineCache(String name) {
+        org.springframework.cache.Cache cache = super.createCaffeineCache(name);
+        if (this.customizers != null) {
+            this.customizers.forEach(customizer -> customizer.onCreate(cache));
+        }
+        return cache;
     }
 
     /**
