@@ -1,3 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.github.stepio.cache.caffeine.CaffeineSpecSpringAutoConfiguration
+io.github.stepio.cache.caffeine.CaffeineSpecAutoConfiguration,\
+io.github.stepio.cache.metrics.CaffeineMetricsAutoConfiguration
