@@ -63,6 +63,7 @@ public class MultiConfigurationCacheManager extends CaffeineCacheManager {
         return this.cacheBuilderSupplier;
     }
 
+    @Override
     protected org.springframework.cache.Cache createCaffeineCache(String name) {
         org.springframework.cache.Cache cache = super.createCaffeineCache(name);
         if (this.customizers != null) {
