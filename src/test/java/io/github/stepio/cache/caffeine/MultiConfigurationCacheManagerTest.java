@@ -16,6 +16,7 @@
 
 package io.github.stepio.cache.caffeine;
 
+import io.github.stepio.cache.CacheCustomizer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,15 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {MultiConfigurationCacheManagerTest.TestContext.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -40,6 +46,31 @@ public class MultiConfigurationCacheManagerTest {
     private MultiConfigurationCacheManager cacheManager;
     @Autowired
     private CachedDataHolder cachedDataHolder;
+
+    @Test
+    public void testSetCacheBuilderSupplier() {
+        assertThat(this.cacheManager.cacheBuilderSupplier).isNotNull();
+    }
+
+    @Test
+    public void testSetCustomizers() {
+        assertThat(this.cacheManager.customizers).isNotEmpty();
+    }
+
+    @Test
+    public void testCreateCaffeineCache() {
+        AtomicInteger counter = new AtomicInteger();
+        CacheCustomizer customizer = mock(CacheCustomizer.class);
+        doAnswer(i -> {
+            counter.incrementAndGet();
+            return null;
+        }).when(customizer).onCreate(any(), any());
+        MultiConfigurationCacheManager cacheManager = new MultiConfigurationCacheManager();
+        cacheManager.setCustomizers(Collections.singletonList(customizer));
+        assertThat(counter.get()).isZero();
+        cacheManager.createCaffeineCache("dummy");
+        assertThat(counter.get()).isOne();
+    }
 
     @Test
     public void testCreateNativeCaffeineCacheAsDefault() {
