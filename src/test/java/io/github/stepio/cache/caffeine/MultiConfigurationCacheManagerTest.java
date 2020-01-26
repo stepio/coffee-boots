@@ -39,7 +39,10 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {MultiConfigurationCacheManagerTest.TestContext.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(
+        classes = {MultiConfigurationCacheManagerTest.TestContext.class},
+        webEnvironment = SpringBootTest.WebEnvironment.NONE
+)
 public class MultiConfigurationCacheManagerTest {
 
     @Autowired
