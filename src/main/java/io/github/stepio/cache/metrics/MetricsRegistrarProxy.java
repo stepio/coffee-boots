@@ -11,14 +11,17 @@ import org.springframework.cache.Cache;
 public class MetricsRegistrarProxy implements CacheCustomizer {
 
     private CacheMetricsRegistrar cacheMetricsRegistrar;
+    private String cacheManagerName;
 
-    public MetricsRegistrarProxy(CacheMetricsRegistrar cacheMetricsRegistrar) {
+    public MetricsRegistrarProxy(CacheMetricsRegistrar cacheMetricsRegistrar,
+                                 String cacheManagerName) {
         this.cacheMetricsRegistrar = cacheMetricsRegistrar;
+        this.cacheManagerName = cacheManagerName;
     }
 
     @Override
     public void onCreate(String name, Cache cache) {
-        Tag cacheManagerTag = Tag.of("cacheManager", "multiCaffeineManager");
+        Tag cacheManagerTag = Tag.of("cacheManager", this.cacheManagerName);
         this.cacheMetricsRegistrar.bindCacheToRegistry(cache, cacheManagerTag);
     }
 }

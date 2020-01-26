@@ -21,7 +21,8 @@ class MetricsRegistrarProxyTest {
             counter.incrementAndGet();
             return null;
         }).when(cacheMetricsRegistrar).bindCacheToRegistry(any(), any());
-        MetricsRegistrarProxy metricsRegistrarProxy = new MetricsRegistrarProxy(cacheMetricsRegistrar);
+        MetricsRegistrarProxy metricsRegistrarProxy =
+                new MetricsRegistrarProxy(cacheMetricsRegistrar, "name");
         assertThat(counter.get()).isZero();
         metricsRegistrarProxy.onCreate("dummy", mock(Cache.class));
         assertThat(counter.get()).isOne();
