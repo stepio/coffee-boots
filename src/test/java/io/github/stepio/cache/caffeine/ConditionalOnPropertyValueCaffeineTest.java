@@ -25,6 +25,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 )
 public class ConditionalOnPropertyValueCaffeineTest {
 
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Test
+    public void testConditionalOnProperty() {
+        assertThat(cacheManager).isInstanceOf(MultiConfigurationCacheManager.class);
+    }
+
     @BeforeClass
     public static void setUp() {
         System.setProperty("spring.cache.type", "caffeine");
@@ -33,14 +41,6 @@ public class ConditionalOnPropertyValueCaffeineTest {
     @AfterClass
     public static void tearDown() {
         System.clearProperty("spring.cache.type");
-    }
-
-    @Autowired
-    private CacheManager cacheManager;
-
-    @Test
-    public void testConditionalOnProperty() {
-        assertThat(cacheManager).isInstanceOf(MultiConfigurationCacheManager.class);
     }
 
     @EnableCaching
