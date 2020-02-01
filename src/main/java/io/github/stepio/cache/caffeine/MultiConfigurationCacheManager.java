@@ -20,6 +20,7 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.CaffeineSpec;
 import io.github.stepio.cache.CacheCustomizer;
+import io.github.stepio.cache.Customizable;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 
 import java.util.List;
@@ -31,7 +32,7 @@ import java.util.function.Function;
  *
  * @author Igor Stepanov
  */
-public class MultiConfigurationCacheManager extends CaffeineCacheManager {
+public class MultiConfigurationCacheManager extends CaffeineCacheManager implements Customizable {
 
     protected Function<String, Caffeine<Object, Object>> cacheBuilderSupplier;
     protected List<CacheCustomizer> customizers;
@@ -46,11 +47,6 @@ public class MultiConfigurationCacheManager extends CaffeineCacheManager {
         this.cacheBuilderSupplier = supplier;
     }
 
-    /**
-     * Set list of {@link CacheCustomizer} instances to be invoked upon creation of each Cache instance.
-     * @param customizers list of CacheCustomizer instances to be invoked
-     * @see CacheCustomizer#onCreate(String, org.springframework.cache.Cache)
-     */
     public void setCustomizers(List<CacheCustomizer> customizers) {
         this.customizers = customizers;
     }

@@ -21,6 +21,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,9 +34,14 @@ import org.springframework.context.annotation.Primary;
  */
 @Configuration
 @ConditionalOnClass({CaffeineCacheManager.class, Caffeine.class})
+@ConditionalOnProperty(
+        name = "spring.cache.type",
+        havingValue = "caffeine",
+        matchIfMissing = true
+)
 @ConditionalOnMissingBean(
-        value = {MultiConfigurationCacheManager.class},
-        name = {"multiCaffeineManager"}
+        value = MultiConfigurationCacheManager.class,
+        name = "multiCaffeineManager"
 )
 @AutoConfigureAfter(CacheAutoConfiguration.class)
 public class CaffeineSpecAutoConfiguration {

@@ -34,7 +34,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {MultiConfigurationCacheManagerCustomCaffeineTest.TestContext.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(
+        classes = {MultiConfigurationCacheManagerCustomCaffeineTest.TestContext.class},
+        webEnvironment = SpringBootTest.WebEnvironment.NONE
+)
 public class MultiConfigurationCacheManagerCustomCaffeineTest {
 
     @Autowired

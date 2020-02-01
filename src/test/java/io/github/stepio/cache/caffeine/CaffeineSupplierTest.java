@@ -31,7 +31,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Igor Stepanov
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {CaffeineSupplierTest.TestContext.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(
+        classes = {CaffeineSupplierTest.TestContext.class},
+        webEnvironment = SpringBootTest.WebEnvironment.NONE
+)
 public class CaffeineSupplierTest {
 
     @Autowired
