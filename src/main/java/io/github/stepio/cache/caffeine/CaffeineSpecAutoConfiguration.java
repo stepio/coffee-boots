@@ -58,6 +58,7 @@ public class CaffeineSpecAutoConfiguration {
 
     /**
      * Create CaffeineSupplier bean if it's not available in the context.
+     * @param caffeineSpecResolver the underlying {@link CaffeineSpecResolver} bean
      * @return the CaffeineSupplier instance
      */
     @Bean
@@ -68,7 +69,7 @@ public class CaffeineSpecAutoConfiguration {
 
     /**
      * Create MultiConfigurationCacheManager bean if CacheManager is not available in the context.
-     * @param caffeineSupplier the underlying CaffeineSupplier bean
+     * @param caffeineSupplier the underlying {@link CaffeineSupplier} bean
      * @return the MultiConfigurationCacheManager instance
      */
     @Bean

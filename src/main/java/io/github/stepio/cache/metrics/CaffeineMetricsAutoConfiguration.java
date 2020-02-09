@@ -15,7 +15,8 @@ import java.util.Map;
 /**
  * Binds {@link CacheMetricsRegistrar} to {@link MultiConfigurationCacheManager}.
  * Allows configuring metrics for dynamic caches.
- * @see org.springframework.boot.actuate.autoconfigure.metrics.cache.CacheMetricsRegistrarConfiguration
+ * Partially duplicates functionality from Spring Boot's package-private class
+ * {@code org.springframework.boot.actuate.autoconfigure.metrics.cache.CacheMetricsRegistrarConfiguration}.
  *
  * @author Igor Stepanov
  */
@@ -48,7 +49,7 @@ public class CaffeineMetricsAutoConfiguration {
         }
     }
 
-    /**
+    /*
      * @see org.springframework.boot.actuate.autoconfigure.metrics.cache.CacheMetricsRegistrarConfiguration#getCacheManagerName(String)
      */
     private String getCacheManagerName(String beanName) {
