@@ -18,8 +18,6 @@ package io.github.stepio.cache.caffeine;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.CaffeineSpec;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,16 +33,13 @@ import static org.springframework.util.Assert.notNull;
  *
  * @author Igor Stepanov
  */
-public class CaffeineSupplier implements Function<String, Caffeine<Object, Object>>, EnvironmentAware {
+public class CaffeineSupplier implements Function<String, Caffeine<Object, Object>> {
 
-    private static final String CACHE_SPEC_CUSTOM = "coffee-boots.cache.spec.%s";
-
-    protected Environment environment;
+    protected CaffeineSpecResolver caffeineSpecResolver;
     protected final ConcurrentMap<String, Caffeine<Object, Object>> cacheBuilders = new ConcurrentHashMap<>(16);
 
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
+    public CaffeineSupplier(CaffeineSpecResolver caffeineSpecResolver) {
+        this.caffeineSpecResolver = caffeineSpecResolver;
     }
 
     /**
@@ -79,14 +74,10 @@ public class CaffeineSupplier implements Function<String, Caffeine<Object, Objec
 
     @Override
     public Caffeine<Object, Object> apply(String name) {
-        String value = this.environment.getProperty(composeKey(name));
+        String value = this.caffeineSpecResolver.getCaffeineSpec(name);
         if (StringUtils.hasText(value)) {
             return Caffeine.from(value);
         }
         return cacheBuilders.get(name);
-    }
-
-    protected String composeKey(String name) {
-        return String.format(CACHE_SPEC_CUSTOM, name);
     }
 }

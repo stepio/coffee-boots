@@ -41,14 +41,6 @@ public class CaffeineSupplierTest {
     private CaffeineSupplier caffeineSupplier;
 
     @Test
-    public void testComposeKeyWithDifferentCacheNames() {
-        assertThat(this.caffeineSupplier.composeKey("dummy")).isEqualTo("coffee-boots.cache.spec.dummy");
-        assertThat(this.caffeineSupplier.composeKey("largeShort")).isEqualTo("coffee-boots.cache.spec.largeShort");
-        assertThat(this.caffeineSupplier.composeKey("medium")).isEqualTo("coffee-boots.cache.spec.medium");
-        assertThat(this.caffeineSupplier.composeKey("tinyLong")).isEqualTo("coffee-boots.cache.spec.tinyLong");
-    }
-
-    @Test
     public void testApplyWithPreconfiguredCaches() {
         assertThat(this.caffeineSupplier.apply("dummy")).isNull();
         assertThat(this.caffeineSupplier.apply("largeShort"))

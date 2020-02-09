@@ -47,13 +47,23 @@ import org.springframework.context.annotation.Primary;
 public class CaffeineSpecAutoConfiguration {
 
     /**
+     * Create CaffeineSpecResolver bean if it's not available in the context.
+     * @return the CaffeineSpecResolver instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public CaffeineSpecResolver caffeineSpecResolver() {
+        return new CaffeineSpecResolver();
+    }
+
+    /**
      * Create CaffeineSupplier bean if it's not available in the context.
      * @return the CaffeineSupplier instance
      */
     @Bean
     @ConditionalOnMissingBean
-    public CaffeineSupplier caffeineSupplier() {
-        return new CaffeineSupplier();
+    public CaffeineSupplier caffeineSupplier(CaffeineSpecResolver caffeineSpecResolver) {
+        return new CaffeineSupplier(caffeineSpecResolver);
     }
 
     /**
