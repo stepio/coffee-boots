@@ -2,6 +2,7 @@ package io.github.stepio.cache.caffeine;
 
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
@@ -16,6 +17,8 @@ public class CaffeineSpecResolver implements EnvironmentAware {
 
     private static final String CACHE_BASIC_SPEC = "coffee-boots.cache.basic-spec";
     private static final String CACHE_SPEC_CUSTOM = "coffee-boots.cache.spec.%s";
+    private static final String VALIDATION_MESSAGE
+            = String.format("Failed to parse specified '%s' property", CACHE_BASIC_SPEC);
 
     protected Environment environment;
 
@@ -51,7 +54,17 @@ public class CaffeineSpecResolver implements EnvironmentAware {
     static Map<String, String> split(String value) {
         return Arrays.stream(value.split(","))
                 .map(entry -> entry.split("="))
-                .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
+                .collect(Collectors.toMap(CaffeineSpecResolver::key, CaffeineSpecResolver::value));
+    }
+
+    static String key(String[] pair) {
+        Assert.state(pair.length > 0, VALIDATION_MESSAGE);
+        return pair[0];
+    }
+
+    static String value(String[] pair) {
+        Assert.state(pair.length > 1, VALIDATION_MESSAGE);
+        return pair[1];
     }
 
     static String join(Map<String, String> map) {
