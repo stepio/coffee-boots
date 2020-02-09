@@ -39,11 +39,11 @@ public class CaffeineSpecResolver implements EnvironmentAware {
         return custom;
     }
 
-    static String composeKey(String name) {
+    protected static String composeKey(String name) {
         return String.format(CACHE_SPEC_CUSTOM, name);
     }
 
-    static String mergeSpecs(String... specs) {
+    protected static String mergeSpecs(String... specs) {
         Map<String, String> merged = new HashMap<>();
         for (String spec : specs) {
             merged.putAll(split(spec));
@@ -51,29 +51,29 @@ public class CaffeineSpecResolver implements EnvironmentAware {
         return join(merged);
     }
 
-    static Map<String, String> split(String value) {
+    protected static Map<String, String> split(String value) {
         return Arrays.stream(value.split(","))
                 .map(entry -> entry.split("="))
                 .collect(Collectors.toMap(CaffeineSpecResolver::key, CaffeineSpecResolver::value));
     }
 
-    static String key(String[] pair) {
+    protected static String key(String[] pair) {
         Assert.state(pair.length > 0, VALIDATION_MESSAGE);
         return pair[0];
     }
 
-    static String value(String[] pair) {
+    protected static String value(String[] pair) {
         Assert.state(pair.length > 1, VALIDATION_MESSAGE);
         return pair[1];
     }
 
-    static String join(Map<String, String> map) {
+    protected static String join(Map<String, String> map) {
         return map.entrySet().stream()
                 .map(CaffeineSpecResolver::join)
                 .collect(Collectors.joining(","));
     }
 
-    static String join(Map.Entry<String, String> entry) {
+    protected static String join(Map.Entry<String, String> entry) {
         return entry.getKey() + "=" + entry.getValue();
     }
 }
