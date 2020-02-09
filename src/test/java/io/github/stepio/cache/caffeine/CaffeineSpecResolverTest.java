@@ -18,8 +18,6 @@ import static org.mockito.Mockito.mock;
 public class CaffeineSpecResolverTest {
 
     private static final String CACHE_BASIC_SPEC = "coffee-boots.cache.basic-spec";
-    private static final String VALIDATION_MESSAGE
-            = "Failed to parse specified 'coffee-boots.cache.basic-spec' property";
 
     private Environment environment;
     private CaffeineSpecResolver caffeineSpecResolver;
