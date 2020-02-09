@@ -63,8 +63,10 @@ public class CaffeineSpecResolver implements EnvironmentAware {
     }
 
     protected static String value(String[] pair) {
-        Assert.state(pair.length > 1, VALIDATION_MESSAGE);
-        return pair[1];
+        if (pair.length > 1) {
+            return pair[1];
+        }
+        return "";
     }
 
     protected static String join(Map<String, String> map) {
@@ -74,6 +76,9 @@ public class CaffeineSpecResolver implements EnvironmentAware {
     }
 
     protected static String join(Map.Entry<String, String> entry) {
-        return entry.getKey() + "=" + entry.getValue();
+        if (StringUtils.hasText(entry.getValue())) {
+            return entry.getKey() + "=" + entry.getValue();
+        }
+        return entry.getKey();
     }
 }

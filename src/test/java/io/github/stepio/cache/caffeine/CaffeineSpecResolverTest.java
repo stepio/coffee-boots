@@ -32,13 +32,17 @@ public class CaffeineSpecResolverTest {
                 .when(this.environment)
                 .getProperty(eq(CACHE_BASIC_SPEC));
 
-        doReturn("expireAfterWrite=12h")
+        doReturn("expireAfterWrite=7m")
                 .when(this.environment)
                 .getProperty(eq("coffee-boots.cache.spec.reduced"));
 
         doReturn("maximumSize=5000,expireAfterWrite=12h")
                 .when(this.environment)
                 .getProperty(eq("coffee-boots.cache.spec.full"));
+
+        doReturn("expireAfterWrite=20s,recordStats")
+                .when(this.environment)
+                .getProperty(eq("coffee-boots.cache.spec.exotic"));
 
         this.caffeineSpecResolver = new CaffeineSpecResolver();
         this.caffeineSpecResolver.setEnvironment(this.environment);
@@ -47,9 +51,12 @@ public class CaffeineSpecResolverTest {
     @Test
     public void testGetCaffeineSpecDefined() {
         assertThat(this.caffeineSpecResolver.getCaffeineSpec("reduced"))
-                .contains("maximumSize=100", "expireAfterWrite=12h", ",");
+                .contains("maximumSize=100", "expireAfterWrite=7m", ",");
         assertThat(this.caffeineSpecResolver.getCaffeineSpec("full"))
                 .contains("maximumSize=5000", "expireAfterWrite=12h", ",");
+        assertThat(this.caffeineSpecResolver.getCaffeineSpec("exotic"))
+                .contains("maximumSize=100", "expireAfterWrite=20s", "recordStats", ",")
+                .doesNotContain("recordStats=");
     }
 
     @Test
@@ -59,7 +66,7 @@ public class CaffeineSpecResolverTest {
                 .getProperty(eq(CACHE_BASIC_SPEC));
 
         assertThat(this.caffeineSpecResolver.getCaffeineSpec("reduced"))
-                .contains("expireAfterWrite=12h");
+                .contains("expireAfterWrite=7m");
         assertThat(this.caffeineSpecResolver.getCaffeineSpec("full"))
                 .contains("maximumSize=5000", "expireAfterWrite=12h", ",");
 
@@ -68,7 +75,7 @@ public class CaffeineSpecResolverTest {
                 .getProperty(eq(CACHE_BASIC_SPEC));
 
         assertThat(this.caffeineSpecResolver.getCaffeineSpec("reduced"))
-                .contains("expireAfterWrite=12h");
+                .contains("expireAfterWrite=7m");
         assertThat(this.caffeineSpecResolver.getCaffeineSpec("full"))
                 .contains("maximumSize=5000", "expireAfterWrite=12h", ",");
     }
@@ -79,12 +86,12 @@ public class CaffeineSpecResolverTest {
                 .when(this.environment)
                 .getProperty(eq(CACHE_BASIC_SPEC));
 
-        assertThatThrownBy(() -> this.caffeineSpecResolver.getCaffeineSpec("reduced"))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage(VALIDATION_MESSAGE);
-        assertThatThrownBy(() -> this.caffeineSpecResolver.getCaffeineSpec("full"))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage(VALIDATION_MESSAGE);
+        assertThat(this.caffeineSpecResolver.getCaffeineSpec("reduced"))
+                .contains("expireAfterWrite=7m", "dummy", ",")
+                .doesNotContain("dummy=");
+        assertThat(this.caffeineSpecResolver.getCaffeineSpec("full"))
+                .contains("maximumSize=5000", "expireAfterWrite=12h", "dummy", ",")
+                .doesNotContain("dummy=");
     }
 
     @Test
@@ -111,12 +118,10 @@ public class CaffeineSpecResolverTest {
     public void testMergeSpecsInvalid() {
         assertThatThrownBy(() -> CaffeineSpecResolver.mergeSpecs(null))
                 .isInstanceOf(NullPointerException.class);
-        assertThatThrownBy(() -> CaffeineSpecResolver.mergeSpecs(""))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage(VALIDATION_MESSAGE);
-        assertThatThrownBy(() -> CaffeineSpecResolver.mergeSpecs("dummy"))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage(VALIDATION_MESSAGE);
+        assertThat(CaffeineSpecResolver.mergeSpecs(""))
+                .isEqualTo("");
+        assertThat(CaffeineSpecResolver.mergeSpecs("dummy"))
+                .isEqualTo("dummy");
     }
 
     @Test
@@ -131,12 +136,10 @@ public class CaffeineSpecResolverTest {
     public void testSplitInvalid() {
         assertThatThrownBy(() -> CaffeineSpecResolver.split(null))
                 .isInstanceOf(NullPointerException.class);
-        assertThatThrownBy(() -> CaffeineSpecResolver.split(""))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage(VALIDATION_MESSAGE);
-        assertThatThrownBy(() -> CaffeineSpecResolver.split("dummy"))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage(VALIDATION_MESSAGE);
+        assertThat(CaffeineSpecResolver.split(""))
+                .containsOnly(entry("", ""));
+        assertThat(CaffeineSpecResolver.split("dummy"))
+                .containsOnly(entry("dummy", ""));
     }
 
     @Test
