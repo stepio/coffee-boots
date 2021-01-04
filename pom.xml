@@ -22,7 +22,7 @@
         <!-- Dependency versions -->
         <awaitility.version>4.0.3</awaitility.version>
         <!-- Plugin versions -->
-        <dependency-check-plugin.version>6.0.3</dependency-check-plugin.version>
+        <dependency-check-plugin.version>6.0.4</dependency-check-plugin.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
