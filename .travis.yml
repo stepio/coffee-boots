@@ -1,5 +1,7 @@
 os: linux
 arch: arm64-graviton2
+git:
+  depth: false
 language: java
 jdk: openjdk11
 install: true
