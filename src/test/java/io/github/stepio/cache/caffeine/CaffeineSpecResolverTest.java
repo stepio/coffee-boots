@@ -58,7 +58,7 @@ public class CaffeineSpecResolverTest {
     }
 
     @Test
-    public void testGetCaffeineSpecWhenDefaultNotDefined() {
+    public void testGetCaffeineSpecNotDefined() {
         doReturn(null)
                 .when(this.environment)
                 .getProperty(eq(CACHE_BASIC_SPEC));
