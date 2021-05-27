@@ -80,7 +80,7 @@ More information is in [issue#44](https://github.com/stepio/coffee-boots/issues/
 
 More information is in [issue#43](https://github.com/stepio/coffee-boots/issues/43) or [commit#2a38d5b](https://github.com/stepio/coffee-boots/commit/2a38d5b3ca7e12c2cbc152e2b5f5bf0aa3233f34#diff-a6f66d25e49c3ad808097932be3df2d0).
 
-8.  If you'd like to get automatic metrics registaration for your custom caches, don't forget to add next dependencies:
+8.  If you'd like to get automatic metrics registration for your custom caches, don't forget to add next dependencies:
 
 ```xml
 <dependency>
