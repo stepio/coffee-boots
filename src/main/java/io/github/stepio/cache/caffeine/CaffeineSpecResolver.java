@@ -29,9 +29,7 @@ public class CaffeineSpecResolver implements EnvironmentAware {
 
     public String getCaffeineSpec(String name) {
         String custom = this.environment.getProperty(composeKey(name));
-        if (StringUtils.isEmpty(custom)) {
-            return null;
-        }
+
         String basic = this.environment.getProperty(CACHE_BASIC_SPEC);
         if (StringUtils.hasText(basic)) {
             return mergeSpecs(basic, custom);
@@ -46,7 +44,9 @@ public class CaffeineSpecResolver implements EnvironmentAware {
     protected static String mergeSpecs(String... specs) {
         Map<String, String> merged = new HashMap<>();
         for (String spec : specs) {
-            merged.putAll(split(spec));
+            if (!StringUtils.isEmpty(spec)) {
+                merged.putAll(split(spec));
+            }
         }
         return join(merged);
     }

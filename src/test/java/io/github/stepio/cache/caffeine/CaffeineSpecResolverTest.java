@@ -58,7 +58,7 @@ public class CaffeineSpecResolverTest {
     }
 
     @Test
-    public void testGetCaffeineSpecNotDefined() {
+    public void testGetCaffeineSpecWhenDefaultNotDefined() {
         doReturn(null)
                 .when(this.environment)
                 .getProperty(eq(CACHE_BASIC_SPEC));
@@ -76,6 +76,12 @@ public class CaffeineSpecResolverTest {
                 .contains("expireAfterWrite=7m");
         assertThat(this.caffeineSpecResolver.getCaffeineSpec("full"))
                 .contains("maximumSize=5000", "expireAfterWrite=12h", ",");
+    }
+
+    @Test
+    public void testGetCaffeineSpecWhenNotDefinedAndDefaultDefined() {
+        assertThat(this.caffeineSpecResolver.getCaffeineSpec("unspecifiedSpec"))
+                .contains("maximumSize=100");
     }
 
     @Test
