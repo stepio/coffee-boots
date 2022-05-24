@@ -17,8 +17,8 @@
 package io.github.stepio.cache.caffeine;
 
 import io.github.stepio.cache.CacheCustomizer;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,7 +38,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(
         classes = {MultiConfigurationCacheManagerTest.TestContext.class},
         webEnvironment = SpringBootTest.WebEnvironment.NONE
