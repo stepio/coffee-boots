@@ -156,6 +156,7 @@
                         <artifactId>dependency-check-maven</artifactId>
                         <configuration>
                             <failBuildOnCVSS>${dependency-check-plugin.score-limit}</failBuildOnCVSS>
+                            <suppressionFile>${basedir}/cve-suppressions.xml</suppressionFile>
                         </configuration>
                         <executions>
                             <execution>
