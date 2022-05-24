@@ -24,7 +24,6 @@ import io.github.stepio.cache.Customizable;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 
 import java.util.List;
-import java.util.function.Function;
 
 /**
  * Extension for Spring's {@link org.springframework.cache.caffeine.CaffeineCacheManager}.
@@ -34,16 +33,16 @@ import java.util.function.Function;
  */
 public class MultiConfigurationCacheManager extends CaffeineCacheManager implements Customizable {
 
-    protected Function<String, Caffeine<Object, Object>> cacheBuilderSupplier;
+    protected CacheBuilderSupplier cacheBuilderSupplier;
     protected List<CacheCustomizer> customizers;
 
     /**
-     * Set the {@link Function} to produce {@link Caffeine} for building each individual {@link Cache} instance.
+     * Set the {@link CacheBuilderSupplier} to produce {@link Caffeine} for building each individual {@link Cache} instance.
      * @param supplier the implementation of Caffeine producer
      * @see #createNativeCaffeineCache
      * @see Caffeine#from(CaffeineSpec)
      */
-    public void setCacheBuilderSupplier(Function<String, Caffeine<Object, Object>> supplier) {
+    public void setCacheBuilderSupplier(CacheBuilderSupplier supplier) {
         this.cacheBuilderSupplier = supplier;
     }
 
@@ -55,7 +54,7 @@ public class MultiConfigurationCacheManager extends CaffeineCacheManager impleme
      * Accessor for the underlying {@link Caffeine} producer.
      * @return exact implementation of function for instantiating the Cache with the specified name
      */
-    public Function<String, Caffeine<Object, Object>> getCacheBuilderSupplier() {
+    public CacheBuilderSupplier getCacheBuilderSupplier() {
         return this.cacheBuilderSupplier;
     }
 
@@ -78,7 +77,7 @@ public class MultiConfigurationCacheManager extends CaffeineCacheManager impleme
     @Override
     protected Cache<Object, Object> createNativeCaffeineCache(String name) {
         if (this.cacheBuilderSupplier != null) {
-            Caffeine<Object, Object> caffeine = this.cacheBuilderSupplier.apply(name);
+            Caffeine<Object, Object> caffeine = this.cacheBuilderSupplier.cacheBuilder(name);
             if (caffeine != null) {
                 return caffeine.build();
             }
