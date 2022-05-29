@@ -1,15 +1,15 @@
 package io.github.stepio.cache.caffeine;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,7 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Igor Stepanov
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(
         classes = {ConditionalOnPropertyValueCaffeineTest.TestContext.class},
         webEnvironment = SpringBootTest.WebEnvironment.NONE
@@ -33,12 +32,12 @@ public class ConditionalOnPropertyValueCaffeineTest {
         assertThat(cacheManager).isInstanceOf(MultiConfigurationCacheManager.class);
     }
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         System.setProperty("spring.cache.type", "caffeine");
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDown() {
         System.clearProperty("spring.cache.type");
     }

@@ -16,12 +16,12 @@
 
 package io.github.stepio.cache.caffeine;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,7 +30,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Igor Stepanov
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(
         classes = {CaffeineSupplierTest.TestContext.class},
         webEnvironment = SpringBootTest.WebEnvironment.NONE

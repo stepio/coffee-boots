@@ -17,9 +17,9 @@
 package io.github.stepio.cache.caffeine;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,7 +33,6 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(
         classes = {MultiConfigurationCacheManagerCustomCaffeineTest.TestContext.class},
         webEnvironment = SpringBootTest.WebEnvironment.NONE
@@ -45,7 +44,7 @@ public class MultiConfigurationCacheManagerCustomCaffeineTest {
     @Autowired
     private CachedDataHolder cachedDataHolder;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         Caffeine<Object, Object> custom = Caffeine.<Object, Object>newBuilder()
                 .expireAfterWrite(200L, TimeUnit.MILLISECONDS)

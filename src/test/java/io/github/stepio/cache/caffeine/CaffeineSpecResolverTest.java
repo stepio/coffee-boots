@@ -1,12 +1,13 @@
 package io.github.stepio.cache.caffeine;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.springframework.core.env.Environment;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -22,7 +23,7 @@ public class CaffeineSpecResolverTest {
     private Environment environment;
     private CaffeineSpecResolver caffeineSpecResolver;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.environment = mock(Environment.class);
 
