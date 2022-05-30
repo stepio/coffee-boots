@@ -80,6 +80,17 @@ public class CaffeineSpecResolverTest {
     }
 
     @Test
+    public void testGetCaffeineSpecBasicForCacheWithoutCustomSpec() {
+        assertThat(this.caffeineSpecResolver.getCaffeineSpec("unspeced"))
+                .isEqualTo("maximumSize=100");
+        doReturn(null)
+                .when(this.environment)
+                .getProperty(eq(CACHE_BASIC_SPEC));
+        assertThat(this.caffeineSpecResolver.getCaffeineSpec("unspeced"))
+                .isNull();
+    }
+
+    @Test
     public void testGetCaffeineSpecMalformed() {
         doReturn("dummy")
                 .when(this.environment)

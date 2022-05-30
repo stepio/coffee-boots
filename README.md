@@ -76,7 +76,7 @@ coffee-boots.cache.spec.myCache=maximumSize=100000,expireAfterWrite=1m
 
 More information is in [issue#44](https://github.com/stepio/coffee-boots/issues/44) or [commit#a134dc6](https://github.com/stepio/coffee-boots/commit/a134dc60843b46b6a69b00ce4449c510b301f534#diff-798aa55948ec42d85da39f34a917b73f).
 
-7.  Use `coffee-boots.cache.default-spec` to define "basic" cache configuration with common key-value pairs to be reused by all other custom cache configurations. This allows simplifying custom configurations if necessary.
+7.  Use `coffee-boots.cache.basic-spec` to define "basic" cache configuration with common key-value pairs to be reused by all other custom cache configurations. This allows simplifying custom configurations if necessary.
 
 More information is in [issue#43](https://github.com/stepio/coffee-boots/issues/43) or [commit#2a38d5b](https://github.com/stepio/coffee-boots/commit/2a38d5b3ca7e12c2cbc152e2b5f5bf0aa3233f34#diff-a6f66d25e49c3ad808097932be3df2d0).
 
