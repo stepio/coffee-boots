@@ -22,7 +22,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.function.Function;
 
 import static org.springframework.util.Assert.hasText;
 import static org.springframework.util.Assert.notNull;
@@ -33,7 +32,7 @@ import static org.springframework.util.Assert.notNull;
  *
  * @author Igor Stepanov
  */
-public class CaffeineSupplier implements Function<String, Caffeine<Object, Object>> {
+public class CaffeineSupplier implements CacheBuilderSupplier {
 
     protected CaffeineSpecResolver caffeineSpecResolver;
     protected final ConcurrentMap<String, Caffeine<Object, Object>> cacheBuilders = new ConcurrentHashMap<>(16);
@@ -73,7 +72,7 @@ public class CaffeineSupplier implements Function<String, Caffeine<Object, Objec
     }
 
     @Override
-    public Caffeine<Object, Object> apply(String name) {
+    public Caffeine<Object, Object> cacheBuilder(String name) {
         String value = this.caffeineSpecResolver.getCaffeineSpec(name);
         if (StringUtils.hasText(value)) {
             return Caffeine.from(value);

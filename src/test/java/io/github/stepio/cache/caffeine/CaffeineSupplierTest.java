@@ -41,14 +41,14 @@ public class CaffeineSupplierTest {
 
     @Test
     public void testApplyWithPreconfiguredCaches() {
-        assertThat(this.caffeineSupplier.apply("dummy")).isNull();
-        assertThat(this.caffeineSupplier.apply("largeShort"))
+        assertThat(this.caffeineSupplier.cacheBuilder("dummy")).isNull();
+        assertThat(this.caffeineSupplier.cacheBuilder("largeShort"))
                 .hasFieldOrPropertyWithValue("maximumSize", 10_000L)
                 .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 2_000_000_000L);
-        assertThat(this.caffeineSupplier.apply("medium"))
+        assertThat(this.caffeineSupplier.cacheBuilder("medium"))
                 .hasFieldOrPropertyWithValue("maximumSize", 2000L)
                 .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 120_000_000_000L);
-        assertThat(this.caffeineSupplier.apply("tinyLong"))
+        assertThat(this.caffeineSupplier.cacheBuilder("tinyLong"))
                 .hasFieldOrPropertyWithValue("maximumSize", 10L)
                 .hasFieldOrPropertyWithValue("expireAfterWriteNanos", 21600_000_000_000L);
     }
