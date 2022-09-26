@@ -80,6 +80,12 @@ public class CaffeineSpecResolverTest {
     }
 
     @Test
+    public void testGetCaffeineSpecWhenNotDefinedAndDefaultDefined() {
+        assertThat(this.caffeineSpecResolver.getCaffeineSpec("unspecifiedSpec"))
+                .contains("maximumSize=100");
+    }
+
+    @Test
     public void testGetCaffeineSpecMalformed() {
         doReturn("dummy")
                 .when(this.environment)
