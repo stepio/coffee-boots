@@ -87,7 +87,7 @@ public class MultiConfigurationCacheManagerCustomCaffeineTest {
         }
     }
 
-    private static class CachedDataHolder {
+    protected static class CachedDataHolder {
 
         @Cacheable("custom")
         public Object newCachedCustomObject() {

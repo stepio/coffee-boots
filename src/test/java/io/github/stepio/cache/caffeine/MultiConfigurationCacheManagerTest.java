@@ -113,7 +113,7 @@ public class MultiConfigurationCacheManagerTest {
         }
     }
 
-    private static class CachedDataHolder {
+    protected static class CachedDataHolder {
 
         @Cacheable("special")
         public Object newCachedSpecialObject() {
