@@ -34,7 +34,7 @@ import static org.springframework.util.Assert.notNull;
  */
 public class CaffeineSupplier implements CacheBuilderSupplier {
 
-    protected CaffeineSpecResolver caffeineSpecResolver;
+    protected final CaffeineSpecResolver caffeineSpecResolver;
     protected final ConcurrentMap<String, Caffeine<Object, Object>> cacheBuilders = new ConcurrentHashMap<>(16);
 
     public CaffeineSupplier(CaffeineSpecResolver caffeineSpecResolver) {

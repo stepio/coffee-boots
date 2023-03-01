@@ -26,7 +26,6 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
@@ -94,7 +93,7 @@ public class MultiConfigurationCacheManagerTest {
 
         final Object etalon = aShortTerm;
         await().atMost(2100, TimeUnit.MILLISECONDS)
-                .until(() -> this.cachedDataHolder.newCachedShortTermObject() != etalon);
+                .until(() -> !this.cachedDataHolder.newCachedShortTermObject().equals(etalon));
 
         bShortTerm = this.cachedDataHolder.newCachedShortTermObject();
         assertThat(bShortTerm).isNotSameAs(aShortTerm);

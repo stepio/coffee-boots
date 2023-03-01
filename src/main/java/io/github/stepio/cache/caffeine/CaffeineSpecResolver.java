@@ -29,7 +29,7 @@ public class CaffeineSpecResolver implements EnvironmentAware {
 
     public String getCaffeineSpec(String name) {
         String custom = this.environment.getProperty(composeKey(name));
-        if (StringUtils.isEmpty(custom)) {
+        if (!StringUtils.hasText(custom)) {
             return null;
         }
         String basic = this.environment.getProperty(CACHE_BASIC_SPEC);

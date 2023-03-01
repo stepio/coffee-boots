@@ -26,7 +26,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,7 +45,7 @@ public class MultiConfigurationCacheManagerCustomCaffeineTest {
 
     @BeforeEach
     public void setUp() {
-        Caffeine<Object, Object> custom = Caffeine.<Object, Object>newBuilder()
+        Caffeine<Object, Object> custom = Caffeine.newBuilder()
                 .expireAfterWrite(200L, TimeUnit.MILLISECONDS)
                 .maximumSize(5L);
         this.caffeineSupplier.putCaffeine("custom", custom);
@@ -60,7 +59,7 @@ public class MultiConfigurationCacheManagerCustomCaffeineTest {
 
         final Object etalon = aCustom;
         await().atMost(300, TimeUnit.MILLISECONDS)
-                .until(() -> this.cachedDataHolder.newCachedCustomObject() != etalon);
+                .until(() -> !this.cachedDataHolder.newCachedCustomObject().equals(etalon));
 
         aCustom = this.cachedDataHolder.newCachedCustomObject();
         assertThat(this.cachedDataHolder.newCachedCustomObject()).isSameAs(aCustom);
@@ -73,7 +72,7 @@ public class MultiConfigurationCacheManagerCustomCaffeineTest {
 
         final Object etalon = aShortTerm;
         await().atMost(2100, TimeUnit.MILLISECONDS)
-                .until(() -> this.cachedDataHolder.newCachedShortTermObject() != etalon);
+                .until(() -> !this.cachedDataHolder.newCachedShortTermObject().equals(etalon));
 
         assertThat(this.cachedDataHolder.newCachedShortTermObject()).isNotSameAs(aShortTerm);
     }

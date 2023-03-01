@@ -115,7 +115,7 @@ public class CaffeineSpecResolverTest {
 
     @Test
     public void testMergeSpecsInvalid() {
-        assertThatThrownBy(() -> CaffeineSpecResolver.mergeSpecs(null))
+        assertThatThrownBy(() -> CaffeineSpecResolver.mergeSpecs((String) null))
                 .isInstanceOf(NullPointerException.class);
         assertThat(CaffeineSpecResolver.mergeSpecs(""))
                 .isEqualTo("");
