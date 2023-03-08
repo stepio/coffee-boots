@@ -10,8 +10,8 @@ import org.springframework.cache.Cache;
  */
 public class MetricsRegistrarProxy implements CacheCustomizer {
 
-    private CacheMetricsRegistrar cacheMetricsRegistrar;
-    private String cacheManagerName;
+    private final CacheMetricsRegistrar cacheMetricsRegistrar;
+    private final String cacheManagerName;
 
     public MetricsRegistrarProxy(CacheMetricsRegistrar cacheMetricsRegistrar,
                                  String cacheManagerName) {
