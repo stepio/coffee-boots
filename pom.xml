@@ -11,7 +11,7 @@
     </parent>
     <groupId>io.github.stepio.coffee-boots</groupId>
     <artifactId>coffee-boots</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0</version>
     <inceptionYear>2018</inceptionYear>
 
     <name>Coffee Boots</name>
@@ -19,6 +19,7 @@
     <url>https://github.io/stepio/coffee-boots</url>
 
     <properties>
+        <java.version>11</java.version>
         <!-- Dependency versions -->
         <awaitility.version>4.2.0</awaitility.version>
         <!-- Plugin versions -->
