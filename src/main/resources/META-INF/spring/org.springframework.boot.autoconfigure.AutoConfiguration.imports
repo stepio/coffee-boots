@@ -1,0 +1,3 @@
+# Auto Configure
+io.github.stepio.cache.caffeine.CaffeineSpecAutoConfiguration
+io.github.stepio.cache.metrics.CaffeineMetricsAutoConfiguration

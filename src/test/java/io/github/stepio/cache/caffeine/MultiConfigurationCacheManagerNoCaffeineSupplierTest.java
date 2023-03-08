@@ -60,7 +60,7 @@ public class MultiConfigurationCacheManagerNoCaffeineSupplierTest {
         }
     }
 
-    private static class CachedDataHolder {
+    protected static class CachedDataHolder {
 
         @Cacheable("dummy")
         public Object newCachedDummyObject() {
