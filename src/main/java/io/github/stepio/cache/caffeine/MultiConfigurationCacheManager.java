@@ -16,6 +16,7 @@
 
 package io.github.stepio.cache.caffeine;
 
+import com.github.benmanes.caffeine.cache.AsyncCache;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.CaffeineSpec;
@@ -83,5 +84,23 @@ public class MultiConfigurationCacheManager extends CaffeineCacheManager impleme
             }
         }
         return super.createNativeCaffeineCache(name);
+    }
+
+    /**
+     * Create an async Caffeine Cache instance for the specified cache name.
+     * If the appropriate custom Caffeine is available for the given name, applies it.
+     * Otherwise, it uses Spring's implementation with common Caffeine by default.
+     * @param name the name of the cache
+     * @return the async Caffeine Cache instance
+     */
+    @Override
+    protected AsyncCache<Object, Object> createAsyncCaffeineCache(String name) {
+        if (this.cacheBuilderSupplier != null) {
+            Caffeine<Object, Object> builder = this.cacheBuilderSupplier.cacheBuilder(name);
+            if (builder != null) {
+                return builder.buildAsync();
+            }
+        }
+        return super.createAsyncCaffeineCache(name);
     }
 }
